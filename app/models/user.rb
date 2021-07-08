@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :user_rooms
   has_many :chats
   has_many :rooms, through: :user_rooms
+
   attachment :profile_image, destroy: false
 
   validates :email, presence: true, length: {maximum: 10, minimum: 2}
