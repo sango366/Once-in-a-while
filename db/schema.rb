@@ -10,7 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_163406) do
+ActiveRecord::Schema.define(version: 2021_07_08_134333) do
+
+  create_table "chats", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_chats_on_room_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_rooms_on_room_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_user_rooms_on_room_id"
+    t.index ["user_id", "room_id"], name: "index_user_rooms_on_user_id_and_room_id", unique: true
+    t.index ["user_id"], name: "index_user_rooms_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -18,10 +55,19 @@ ActiveRecord::Schema.define(version: 2021_07_06_163406) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "name"
+    t.text "introduction"
+    t.string "profile_image_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chats", "rooms"
+  add_foreign_key "chats", "users"
+  add_foreign_key "rooms", "rooms"
+  add_foreign_key "rooms", "users"
+  add_foreign_key "user_rooms", "rooms"
+  add_foreign_key "user_rooms", "users"
 end
