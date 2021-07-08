@@ -10,7 +10,14 @@
   </head>
 
   <body>
-    <%= yield %>
+  <div class='loading'>
+  <div class="container">
+  <div style="padding-top:50px;">
+          <%= render 'layouts/header' %>
+          <%= yield %>
+        </div>  
+      </div>
+    </div>
   </body>
 </html>
 
