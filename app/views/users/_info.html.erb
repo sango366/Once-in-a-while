@@ -31,5 +31,5 @@
   </div>
 
 <% if current_user != user %>
-  <%= link_to 'チャットを始める', chat_path(user.id) %>
+  <%= link_to 'チャットを始める', root_path(user.id) %>
 <% end %>

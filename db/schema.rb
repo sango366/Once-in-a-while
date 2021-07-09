@@ -10,21 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_07_08_134333) do
+ActiveRecord::Schema.define(version: 2021_07_09_143324) do
 
-  create_table "chats", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_id"
-    t.string "message"
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["room_id"], name: "index_chats_on_room_id"
-    t.index ["user_id"], name: "index_chats_on_user_id"
   end
-=======
-ActiveRecord::Schema.define(version: 2021_07_08_104607) do
->>>>>>> follow
 
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
@@ -32,7 +24,6 @@ ActiveRecord::Schema.define(version: 2021_07_08_104607) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-<<<<<<< HEAD
 
   create_table "rooms", force: :cascade do |t|
     t.integer "user_id"
@@ -53,8 +44,6 @@ ActiveRecord::Schema.define(version: 2021_07_08_104607) do
     t.index ["user_id", "room_id"], name: "index_user_rooms_on_user_id_and_room_id", unique: true
     t.index ["user_id"], name: "index_user_rooms_on_user_id"
   end
-=======
->>>>>>> follow
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -71,8 +60,6 @@ ActiveRecord::Schema.define(version: 2021_07_08_104607) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chats", "rooms"
-  add_foreign_key "chats", "users"
   add_foreign_key "rooms", "rooms"
   add_foreign_key "rooms", "users"
   add_foreign_key "user_rooms", "rooms"
